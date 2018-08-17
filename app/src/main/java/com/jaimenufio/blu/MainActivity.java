@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,9 +27,29 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
 
-    Button forward_btn, forward_left_btn, forward_right_btn, reverse_btn, reverse_left_btn, reverse_right_btn, bluetooth_connect_btn;
+    Button forward_btn, forward_left_btn, forward_right_btn, reverse_btn, bluetooth_connect_btn, alpha_btn, beta_btn;
+    ToggleButton on_switch;
+    TextView tBox;
 
     byte command; //string variable that will store value to be transmitted to the bluetooth module
+    ArrayList<Byte> down = new ArrayList<Byte>();
+
+    protected  void updateList(Byte command){
+        String t = "";
+        down.add(command);
+        for (Byte s: down){
+            t+=""+s;
+        }
+        tBox.setText(t);
+    }
+    protected  void updateList(){
+        String t = "";
+        for (Byte s: down){
+            t+=""+s;
+        }
+        tBox.setText(t);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         forward_right_btn = (Button) findViewById(R.id.forward_right_btn);
         reverse_btn = (Button) findViewById(R.id.reverse_btn);
         bluetooth_connect_btn = (Button) findViewById(R.id.bluetooth_connect_btn);
+        on_switch = (ToggleButton) findViewById(R.id.on_switch);
+        tBox = (TextView) findViewById(R.id.tBox);
+        alpha_btn = (Button) findViewById(R.id.alpha);
+        beta_btn = (Button) findViewById(R.id.beta);
 
 
         //OnTouchListener code for the forward button (button long press)
@@ -46,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN) //MotionEvent.ACTION_DOWN is when you hold a button down
+                if (event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked()) //MotionEvent.ACTION_DOWN is when you hold a button down
                 {
                     command = 1;
+                    updateList(command);
 
                     try
                     {
@@ -61,7 +89,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP) //MotionEvent.ACTION_UP is when you release a button
                 {
-                    command = 10;
+                    Byte t = 1;
+                    down.remove(t);
+                    command = 126;
+                    updateList();
                     try
                     {
                         outputStream.write(command);
@@ -83,9 +114,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                if(event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked())
                 {
                     command = 2;
+                    updateList(command);
 
                     try
                     {
@@ -98,7 +130,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP)
                 {
-                    command = 10;
+                    Byte t = 2;
+                    down.remove(t);
+                    command = 125;
+                    updateList();
                     try
                     {
                         outputStream.write(command);
@@ -118,9 +153,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                if(event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked())
                 {
                     command = 3;
+                    updateList(command);
 
                     try
                     {
@@ -133,7 +169,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP)
                 {
-                    command = 10;
+                    Byte t = 3;
+                    down.remove(t);
+                    command = 124;
+                    updateList();
                     try
                     {
                         outputStream.write(command);
@@ -153,9 +192,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                if(event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked())
                 {
                     command = 4;
+                    updateList(command);
 
                     try
                     {
@@ -168,7 +208,86 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(event.getAction() == MotionEvent.ACTION_UP)
                 {
-                    command = 10;
+                    Byte t = 4;
+                    down.remove(t);
+                    command = 123;
+                    updateList();
+                    try
+                    {
+                        outputStream.write(command);
+                    }
+                    catch(IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }
+                return false;
+            }
+        });
+
+        alpha_btn.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if(event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked())
+                {
+                    command = 5;
+                    updateList(command);
+
+                    try
+                    {
+                        outputStream.write(command);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    Byte t = 5;
+                    down.remove(t);
+                    command = 122;
+                    updateList();
+                    try
+                    {
+                        outputStream.write(command);
+                    }
+                    catch(IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }
+                return false;
+            }
+        });
+
+        beta_btn.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if(event.getAction() == MotionEvent.ACTION_DOWN && on_switch.isChecked())
+                {
+                    command = 6;
+                    updateList(command);
+
+                    try
+                    {
+                        outputStream.write(command);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    Byte t = 6;
+                    down.remove(t);
+                    command = 121;
+                    updateList();
                     try
                     {
                         outputStream.write(command);
