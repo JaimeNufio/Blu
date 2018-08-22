@@ -11,11 +11,26 @@
     tools:context=".MainActivity"
     android:id="@+id/relativeLayout">
 
+    <ToggleButton
+        android:id="@+id/deviceToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="312dp"
+        android:layout_marginLeft="16dp"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="DEVICE A"
+        android:textOn="DEVICE B"
+        android:textStyle="normal"
+        android:onClick="toggleDevice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
     <Button
         android:id="@+id/forward_btn"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="176dp"
         android:text="Up"
         app:layout_constraintEnd_toStartOf="@+id/forward_right_btn"
         app:layout_constraintRight_toLeftOf="@+id/forward_right_btn"
@@ -34,6 +49,7 @@
         android:id="@+id/forward_right_btn"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
+        android:layout_marginBottom="4dp"
         android:text="Right"
         app:layout_constraintBottom_toTopOf="@+id/reverse_btn"
         app:layout_constraintLeft_toRightOf="@+id/reverse_btn"
@@ -61,71 +77,73 @@
         android:id="@+id/beta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="16dp"
         android:text="Beta"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/forward_btn" />
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/alpha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="16dp"
         android:text="Alpha"
-        app:layout_constraintEnd_toStartOf="@+id/forward_btn"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/beta" />
+        app:layout_constraintTop_toTopOf="@+id/beta"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ToggleButton
         android:id="@+id/on_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
+        android:layout_marginBottom="312dp"
+        android:layout_marginRight="16dp"
         android:checked="false"
         android:text="ToggleButton"
         android:textOff="OFF"
         android:textOn="ON"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tBox1"
         android:layout_width="360dp"
         android:layout_height="34dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
         android:background="@color/red"
         android:gravity="center_horizontal|center"
+        app:layout_constraintBottom_toTopOf="@+id/deviceToggle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tBox" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tBox"
         android:layout_width="360dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:background="@color/gray"
         android:gravity="center_horizontal|center"
+        app:layout_constraintBottom_toTopOf="@+id/tBox1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/scroll"
         android:layout_width="345dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bluetooth_connect_btn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -140,6 +158,25 @@
         android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/scroll"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/on_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/on_switch"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="360dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:gravity="center_vertical|center"
+        android:imeOptions="actionDone"
+        android:inputType="text|textPersonName"
+        android:singleLine="true"
+        android:text="MAC Address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
 </android.support.constraint.ConstraintLayout>
